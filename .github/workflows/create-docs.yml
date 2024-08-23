@@ -1,0 +1,22 @@
+# When documentation is changed in the docs directory or in the mkdocs.yml, this workflow
+# builds a new version of this repo's documentation microsite for the HCA Developer Platform.
+# It then uploads it to Google Cloud Storage where it can be consumed from HCAdev.
+
+name: Publish TechDocs Site
+
+on:
+  push:
+    branches:
+      - main
+#     Set it to run only when TechDocs related files are updated.
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+  workflow_dispatch:
+
+jobs:
+  publish-techdocs-site:
+    permissions:
+      contents: read
+      id-token: write
+    uses: HCAECOE/.github/.github/workflows/publish-docs-reusable.yml@main

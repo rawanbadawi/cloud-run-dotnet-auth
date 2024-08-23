@@ -1,0 +1,22 @@
+name: Build and Deploy to Cloud Run
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches: [develop, main]
+
+jobs:
+  #DEV
+  dev:
+    if: github.ref_name != 'main'
+    uses: hca-enterprise/.github/.github/workflows/cloud-run-deployment.yml@6844be958ed16e30b0680e5c20faa26c66ff4abb
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
+      security-events: write
+      checks: write
+      pull-requests: write
+    with:
+      environment: dev
+    secrets: inherit
